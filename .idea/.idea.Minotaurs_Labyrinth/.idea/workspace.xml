@@ -6,16 +6,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5511b91e-9c5d-4c6f-8ec6-a3294ec1055a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Weapons.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Weapons.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/DartTrap.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/DartTrap.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/SpikeTrap.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/SpikeTrap.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Trap.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Trap.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainMenu/MainMenuLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/MainMenuLevel.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/MainMenu/MainMenuUI.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/MainMenuUI.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Levels/MainMenu/MainMenuLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/MainMenu/MainMenuLevel.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainHero/BP_MainHero.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainHero/BP_MainHero.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Minotaurs_Labyrinth.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/Minotaurs_Labyrinth.uproject" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2N0DwxFbDOX8fhjS6G4ubGRVqJs" />
   <component name="ProjectViewState">
@@ -262,6 +271,8 @@
       <workItem from="1678792353392" duration="4000" />
       <workItem from="1679646356234" duration="315000" />
       <workItem from="1679646778244" duration="24000" />
+      <workItem from="1682530979542" duration="683000" />
+      <workItem from="1682532672900" duration="4689000" />
     </task>
     <servers />
   </component>
