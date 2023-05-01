@@ -6,11 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5511b91e-9c5d-4c6f-8ec6-a3294ec1055a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Level1/GM_Level1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Level1/GM_Level1.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -269,7 +268,8 @@
       <workItem from="1682532672900" duration="4689000" />
       <workItem from="1682862427572" duration="894000" />
       <workItem from="1682863814191" duration="1346000" />
-      <workItem from="1682865311990" duration="428000" />
+      <workItem from="1682865311990" duration="437000" />
+      <workItem from="1682940409081" duration="3353000" />
     </task>
     <servers />
   </component>

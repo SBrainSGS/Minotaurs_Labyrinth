@@ -2,27 +2,29 @@
 
 AMainHero::AMainHero()
 {
-	// Создание и настройка компонента коллизии (капсульная коллизия)
-	CollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
-	RootComponent = CollisionCapsule;
-
-	// Создание и настройка компонента коллизии для взаимодействия (сферическая коллизия)
-	InteractionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("InteractionSphere"));
-	InteractionSphere->SetupAttachment(RootComponent);
-
-	// Создание и настройка компонента отображения меша персонажа
-	CharacterMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CharacterMesh"));
-	CharacterMesh->SetupAttachment(RootComponent);
-
 	//Создание скелета персонажа
 	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMeshComponent"));
 	RootComponent = SkeletalMeshComponent;
-
+	
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkeletalMeshAsset(TEXT("SkeletalMesh'/Game/MainHero/Arissa.Arissa'"));
 	if (SkeletalMeshAsset.Succeeded())
 	{
 		SkeletalMeshComponent->SetSkeletalMesh(SkeletalMeshAsset.Object);
 	}
+	
+	// Создание и настройка компонента коллизии (капсульная коллизия)
+	CollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
+	CollisionCapsule ->SetupAttachment(RootComponent);
+	CollisionCapsule->InitCapsuleSize(40, 100);
+	FVector CC_Offset(0.0f, 0.0f, 55);
+	CollisionCapsule->SetRelativeLocation(CC_Offset);
+
+	// Создание и настройка компонента коллизии для взаимодействия (сферическая коллизия)
+	InteractionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("InteractionSphere"));
+	InteractionSphere->SetupAttachment(RootComponent);
+	InteractionSphere->SetSphereRadius(60);
+	FVector IS_Offset(0.0f, 0.0f, 55);
+	InteractionSphere->SetRelativeLocation(IS_Offset);
 
 	// Установка анимационного синтезатора
 	static ConstructorHelpers::FObjectFinder<UAnimBlueprint> AnimBlueprint(TEXT("AnimBlueprint'/Game/MainHero/Animations/BPA_MainHero.BPA_MainHero'"));
