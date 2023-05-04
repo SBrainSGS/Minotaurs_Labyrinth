@@ -1,5 +1,7 @@
 #include "MainHero.h"
 
+#include "Misc/OutputDeviceNull.h"
+
 AMainHero::AMainHero()
 {
 	//Отключение автоматической настройки поворота
@@ -36,7 +38,8 @@ AMainHero::AMainHero()
 
 	// Настройка параметров движения
 	FloatingPawnMovement->MaxSpeed = 500.0f;
-	// Другие настройки движения...
+
+	InteractingActor = nullptr;
 }
 
 void AMainHero::Tick(float DeltaTime)
@@ -68,6 +71,9 @@ void AMainHero::BeginPlay()
 			PlayerController->SetViewTarget(this);
 		}
 	}
+	
+	InteractionSphere->OnComponentBeginOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereBeginOverlap);
+	InteractionSphere->OnComponentEndOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereEndOverlap);
 }
 
 void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -80,6 +86,10 @@ void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	// Привязка функции к кнопке взаимодействия
 	PlayerInputComponent->BindAction("Interaction w/ objects", IE_Pressed, this, &AMainHero::OnInteractionPressed);
+
+	//Привязка событий перекрытия компонента
+	InteractionSphere->OnComponentBeginOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereBeginOverlap);
+	InteractionSphere->OnComponentEndOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereEndOverlap);
 }
 
 void AMainHero::MoveForwardBack(float Value)
@@ -112,7 +122,26 @@ void AMainHero::MoveLeftRight(float Value)
 
 void AMainHero::OnInteractionPressed()
 {
+	if (InCollision && InteractingActor)
+	{
+		TArray<FString> EmptyArgs; // Пустой массив аргументов
+		FOutputDeviceNull ar; // Пустой вывод аргументов
+		
+		InteractingActor->CallFunctionByNameWithArguments(TEXT("Interact"), ar, nullptr, true); // Вызываем функцию "Interact" непосредственно из объекта взаимодействия
+	}
 }
 
+void AMainHero::OnInteractionSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	InteractingActor = OtherActor; // Сохраняем указатель на объект, с которым происходит перекрытие
+	InCollision = true;
+}
 
-
+void AMainHero::OnInteractionSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if (OtherActor == InteractingActor) // Проверяем, если объект, с которым произошло перекрытие, является текущим объектом взаимодействия
+		{
+		InteractingActor = nullptr; // Сбрасываем указатель, поскольку объект больше не находится в перекрытии
+		InCollision = false;
+		}
+}

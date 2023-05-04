@@ -51,20 +51,30 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Character")
 	float MovementSpeed;
 
-	UPROPERTY(VisibleAnywhere, Category = "Variables")
-	bool InCollision;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
 	UFloatingPawnMovement* FloatingPawnMovement;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	bool InCollision;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	AActor* InteractingActor;
 
 public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	void OnInteractionPressed();
+
+	UFUNCTION(BlueprintCallable)
+	void OnInteractionSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION(BlueprintCallable)
+		void OnInteractionSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 protected:
 	void MoveForwardBack(float Value);
 	void MoveLeftRight(float Value);
-	void OnInteractionPressed();
 	
 	virtual void BeginPlay() override;
 };
