@@ -23,7 +23,7 @@
 #include "MainHero.generated.h"
 
 UCLASS()
-class MINOTAURS_LABYRINTH_API AMainHero : public APawn
+class MINOTAURS_LABYRINTH_API AMainHero : public APawn,  public ICommunicator_Interface
 {
 	GENERATED_BODY()
 	
@@ -60,6 +60,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
 	AActor* InteractingActor;
 
+	UPROPERTY(EditAnywhere, Category = "Character")
+	float health;
+
+	UPROPERTY(EditAnywhere, Category = "Character")
+	float mana;
+
 public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -72,6 +78,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void OnInteractionSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+	void TakeDamage(float DamageAmount);
+	virtual void TakeDamage_Implementation(float DamageAmount) override;
+	
 protected:
 	void MoveForwardBack(float Value);
 	void MoveLeftRight(float Value);

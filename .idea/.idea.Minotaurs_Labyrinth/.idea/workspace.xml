@@ -6,11 +6,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5511b91e-9c5d-4c6f-8ec6-a3294ec1055a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Content/Traps/BP_SpikeTrap.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Traps/SpikeTrap_HideAnimation.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Traps/SpikeTrap_HideAnimation_Anim.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Traps/SpikeTrap_HideAnimation_PhysicsAsset.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Traps/SpikeTrap_HideAnimation_Skeleton.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Traps/lambert1.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Levels/Tutorial/BP_ToNewLevel.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Tutorial/BP_ToNewLevel.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainHero/BP_MainHeroMesh.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainHero/BP_MainHeroMesh.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Communicator_Interface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Communicator_Interface.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/SpikeTrap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/SpikeTrap.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/SpikeTrap.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/SpikeTrap.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,7 +282,7 @@
       <workItem from="1682865311990" duration="437000" />
       <workItem from="1682940409081" duration="3353000" />
       <workItem from="1683118652030" duration="1394000" />
-      <workItem from="1683214193989" duration="19305000" />
+      <workItem from="1683214193989" duration="23794000" />
     </task>
     <servers />
   </component>

@@ -4,6 +4,10 @@
 
 AMainHero::AMainHero()
 {
+	//Установка здоровья и маны
+	health = 100;
+	mana = 100;
+	
 	//Отключение автоматической настройки поворота
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationPitch = false;
@@ -48,10 +52,12 @@ void AMainHero::Tick(float DeltaTime)
 
 	//Обработка поворота персонажа во время движения
 	if (!FMath::IsNearlyZero(GetMovementComponent()->Velocity.SizeSquared()))
-	{
-		FRotator NewRotation = GetMovementComponent()->Velocity.ToOrientationRotator();
-		SetActorRotation(NewRotation);
-	}
+        {
+            FRotator CurrentRotation = GetActorRotation();
+            FRotator TargetRotation = GetMovementComponent()->Velocity.ToOrientationRotator();
+            FRotator NewRotation = FMath::RInterpTo(CurrentRotation, TargetRotation, DeltaTime, 10);
+            SetActorRotation(NewRotation);
+        }
 
 }
 
@@ -144,4 +150,16 @@ void AMainHero::OnInteractionSphereEndOverlap(UPrimitiveComponent* OverlappedCom
 		InteractingActor = nullptr; // Сбрасываем указатель, поскольку объект больше не находится в перекрытии
 		InCollision = false;
 		}
+}
+
+void AMainHero::TakeDamage_Implementation(float DamageAmount)
+{
+	if(health - DamageAmount > 0)
+	{
+		health -= DamageAmount;
+		FString Message = TEXT("Damage");
+		FColor Color = FColor::Green;
+		float DisplayTime = 2.0f;
+		GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
+	}
 }

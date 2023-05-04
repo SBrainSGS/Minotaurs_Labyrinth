@@ -17,4 +17,7 @@ class MINOTAURS_LABYRINTH_API ICommunicator_Interface
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Communicator")
 	void Interact();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+	void TakeDamage(float DamageAmount);
 };

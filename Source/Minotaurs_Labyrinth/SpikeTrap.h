@@ -3,6 +3,8 @@
 #include "CoreMinimal.h"
 #include "Trap.h"
 #include "Components/BoxComponent.h"
+#include "Communicator_Interface.h"
+#include "MainHero.h"
 #include "SpikeTrap.generated.h"
 
 UCLASS()
@@ -12,15 +14,23 @@ class MINOTAURS_LABYRINTH_API ASpikeTrap : public ATrap
 
 public:
 	ASpikeTrap();
+	
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	USkeletalMeshComponent* SkeletalMeshComponent;
 
 protected:
+	float damage;
+	
 	UPROPERTY(EditAnywhere, Category = "SpikeTrap")
 	UStaticMeshComponent* TrapMesh;
 
 	UPROPERTY(EditAnywhere, Category = "SpikeTrap")
+	UBoxComponent* ObjectCollisionComponent;
+	
+	UPROPERTY(EditAnywhere, Category = "SpikeTrap")
 	UBoxComponent* TriggerCollisionComponent;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void OnTrapTriggered(
 		UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
