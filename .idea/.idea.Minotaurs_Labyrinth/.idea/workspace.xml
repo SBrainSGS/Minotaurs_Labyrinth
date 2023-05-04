@@ -6,14 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5511b91e-9c5d-4c6f-8ec6-a3294ec1055a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/MainHero/BP_MainHeroMesh.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Communicator_Interface.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Communicator_Interface.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Levels/Level1/GM_Level1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Level1/GM_Level1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,7 +268,7 @@
       <workItem from="1682865311990" duration="437000" />
       <workItem from="1682940409081" duration="3353000" />
       <workItem from="1683118652030" duration="1394000" />
-      <workItem from="1683214193989" duration="13037000" />
+      <workItem from="1683214193989" duration="15238000" />
     </task>
     <servers />
   </component>
