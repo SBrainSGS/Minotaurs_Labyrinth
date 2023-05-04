@@ -2,71 +2,72 @@
 
 AMainHero::AMainHero()
 {
-	//Создание скелета персонажа
-	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMeshComponent"));
-	RootComponent = SkeletalMeshComponent;
-	
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkeletalMeshAsset(TEXT("SkeletalMesh'/Game/MainHero/Arissa.Arissa'"));
-	if (SkeletalMeshAsset.Succeeded())
-	{
-		SkeletalMeshComponent->SetSkeletalMesh(SkeletalMeshAsset.Object);
-	}
+	//Отключение автоматической настройки поворота
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
 	
 	// Создание и настройка компонента коллизии (капсульная коллизия)
 	CollisionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
-	CollisionCapsule ->SetupAttachment(RootComponent);
-	CollisionCapsule->InitCapsuleSize(40, 100);
-	FVector CC_Offset(0.0f, 0.0f, 55);
-	CollisionCapsule->SetRelativeLocation(CC_Offset);
+	RootComponent = CollisionCapsule;
+	
+	//Создание скелета персонажа
+	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMeshComponent"));
+	SkeletalMeshComponent ->SetupAttachment(RootComponent);
+	
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkeletalMeshAsset(TEXT("SkeletalMesh'/Game/MainHero/Arissa.Arissa'"));
 
 	// Создание и настройка компонента коллизии для взаимодействия (сферическая коллизия)
 	InteractionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("InteractionSphere"));
 	InteractionSphere->SetupAttachment(RootComponent);
-	InteractionSphere->SetSphereRadius(60);
-	FVector IS_Offset(0.0f, 0.0f, 55);
-	InteractionSphere->SetRelativeLocation(IS_Offset);
-
-	// Установка анимационного синтезатора
-	static ConstructorHelpers::FObjectFinder<UAnimBlueprint> AnimBlueprint(TEXT("AnimBlueprint'/Game/MainHero/Animations/BPA_MainHero.BPA_MainHero'"));
-	if (AnimBlueprint.Succeeded())
-	{
-		MainHeroAnimBlueprint = AnimBlueprint.Object;
-	}
-
-	// Создание и настройка компонента Spring Arm для управления камерой
-	CameraSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraSpringArm"));
-	CameraSpringArm->SetupAttachment(RootComponent);
-	CameraSpringArm->SetRelativeRotation(FRotator(-90.f, 0.f, 0.f));
-	CameraSpringArm->TargetArmLength = 500.f;
-	CameraSpringArm->bEnableCameraLag = false;
-	CameraSpringArm->bEnableCameraRotationLag = false;
-	CameraSpringArm->bInheritPitch = false;
-	CameraSpringArm->bInheritYaw = false;
-	CameraSpringArm->bInheritRoll = false;
-
 	// Создание и настройка компонента камеры
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	Camera->SetupAttachment(CameraSpringArm, USpringArmComponent::SocketName);
+	Camera->SetupAttachment(RootComponent);
 
 	// Настройка скорости движения персонажа
-	MovementSpeed = 500.0f;
+	MovementSpeed = 100.0f;
+
+	PrimaryActorTick.bCanEverTick = true;
+
+	PrimaryActorTick.bCanEverTick = true;
+
+	// Создание и прикрепление компонента движения
+	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("FloatingPawnMovement"));
+
+	// Настройка параметров движения
+	FloatingPawnMovement->MaxSpeed = 500.0f;
+	// Другие настройки движения...
 }
 
 void AMainHero::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	// Обработка логики движения персонажа
-	// ...
 
-	// Обработка логики вращения камеры
-	FRotator CameraRotation = CameraSpringArm->GetComponentRotation();
-	CameraRotation.Pitch = 0.f; // Ограничение вращения камеры только по Y-оси
-	CameraSpringArm->SetWorldRotation(CameraRotation);
+	//Обработка поворота персонажа во время движения
+	if (!FMath::IsNearlyZero(GetMovementComponent()->Velocity.SizeSquared()))
+	{
+		FRotator NewRotation = GetMovementComponent()->Velocity.ToOrientationRotator();
+		SetActorRotation(NewRotation);
+	}
+
 }
 
 void AMainHero::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Получение контроллера персонажа
+	AController* CharController = GetController();
+
+	// Установка активной камеры
+	if (CharController)
+	{
+		APlayerController* PlayerController = Cast<APlayerController>(CharController);
+		if (PlayerController)
+		{
+			PlayerController->SetViewTarget(this);
+		}
+	}
 }
 
 void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -76,6 +77,9 @@ void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	// Привязка функций к входным действиям персонажа
 	PlayerInputComponent->BindAxis("MoveForwardBack", this, &AMainHero::MoveForwardBack);
 	PlayerInputComponent->BindAxis("MoveLeftRight", this, &AMainHero::MoveLeftRight);
+
+	// Привязка функции к кнопке взаимодействия
+	PlayerInputComponent->BindAction("Interaction w/ objects", IE_Pressed, this, &AMainHero::OnInteractionPressed);
 }
 
 void AMainHero::MoveForwardBack(float Value)
@@ -83,16 +87,12 @@ void AMainHero::MoveForwardBack(float Value)
 	if (Value != 0.0f)
 	{
 		// Определение направления движения вперед
-		const FRotator Rotation = GetControlRotation();
-		const FRotator YawRotation(0.0f, Rotation.Yaw, 0.0f);
+		const FRotator Rotation = Controller->GetControlRotation();	
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 
 		// Выполнение движения вперед
-		AddMovementInput(Direction, Value * MovementSpeed);
-
-		// Вращение персонажа в сторону движения
-		FRotator NewRotation = UKismetMathLibrary::MakeRotFromX(Direction);
-		SetActorRotation(NewRotation);
+		AddMovementInput(Direction, Value);
 	}
 }
 
@@ -101,15 +101,18 @@ void AMainHero::MoveLeftRight(float Value)
 	if (Value != 0.0f)
 	{
 		// Определение направления движения вправо
-		const FRotator Rotation = GetControlRotation();
-		const FRotator YawRotation(0.0f, Rotation.Yaw, 0.0f);
+		const FRotator Rotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0, Rotation.Yaw, 0);
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
 		// Выполнение движения вправо
-		AddMovementInput(Direction, Value * MovementSpeed);
-
-		// Вращение персонажа в сторону движения
-		FRotator NewRotation = UKismetMathLibrary::MakeRotFromX(Direction);
-		SetActorRotation(NewRotation);
+		AddMovementInput(Direction, Value);
 	}
 }
+
+void AMainHero::OnInteractionPressed()
+{
+}
+
+
+
