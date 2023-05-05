@@ -20,9 +20,6 @@ public:
 
 protected:
 	float damage;
-	
-	UPROPERTY(EditAnywhere, Category = "SpikeTrap")
-	UStaticMeshComponent* TrapMesh;
 
 	UPROPERTY(EditAnywhere, Category = "SpikeTrap")
 	UBoxComponent* ObjectCollisionComponent;
