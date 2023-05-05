@@ -58,7 +58,6 @@ void AMainHero::Tick(float DeltaTime)
             FRotator NewRotation = FMath::RInterpTo(CurrentRotation, TargetRotation, DeltaTime, 10);
             SetActorRotation(NewRotation);
         }
-
 }
 
 void AMainHero::BeginPlay()
