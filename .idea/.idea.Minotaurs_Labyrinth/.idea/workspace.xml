@@ -6,14 +6,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5511b91e-9c5d-4c6f-8ec6-a3294ec1055a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial_2.umap" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/DartProjectile.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/DartProjectile.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/BP_Cyclop.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/Textures/Mesh_0016out0_tex00.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/Textures/Mesh_0017out0_tex00.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/Textures/cyclop.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/Textures/mat0.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/Textures/mat0_001.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Cyclop.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Cyclop.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/GroundMonster.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/GroundMonster.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Monster.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Monster.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Levels/Level1/Level_1.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Level1/Level_1.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/DartTrap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/DartTrap.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/DartTrap.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/DartTrap.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/SpikeTrap.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/SpikeTrap.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Levels/MainMenu/MainMenuLevel.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/MainMenu/MainMenuLevel.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Levels/MainMenu/MainMenuUI.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/MainMenu/MainMenuUI.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/MainMenuLevel.umap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/MainMenuUI.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Выход.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Выход.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Выход_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Выход_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Выход_ховер.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Выход_ховер.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Выход_ховер_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Выход_ховер_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Меню_без_кнопок.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Меню_без_кнопок.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Меню_без_кнопок_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Меню_без_кнопок_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Настройки.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Настройки.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Настройки_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Настройки_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Настройки_ховер.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Настройки_ховер.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Настройки_ховер_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Настройки_ховер_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Новая_игра.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Новая_игра.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Новая_игра_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Новая_игра_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Новая_игра_ховер.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Новая_игра_ховер.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Новая_игра_ховер_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Новая_игра_ховер_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Продолжить.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Продолжить.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Продолжить_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Продолжить_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Продолжить_ховер.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Продолжить_ховер.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/MainMenu/Textures/Продолжить_ховер_Sprite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainMenu/Textures/Продолжить_ховер_Sprite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/MainHero.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Minotaurs_Labyrinth.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/Minotaurs_Labyrinth/Minotaurs_Labyrinth.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +63,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -279,6 +310,9 @@
       <workItem from="1683239675451" duration="243000" />
       <workItem from="1683265570713" duration="163000" />
       <workItem from="1683317441169" duration="2146000" />
+      <workItem from="1684424858254" duration="3018000" />
+      <workItem from="1684428074372" duration="1902000" />
+      <workItem from="1684430234587" duration="710000" />
     </task>
     <servers />
   </component>
