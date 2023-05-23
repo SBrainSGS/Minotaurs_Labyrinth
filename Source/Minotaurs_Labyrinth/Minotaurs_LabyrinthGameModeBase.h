@@ -13,5 +13,4 @@ UCLASS()
 class MINOTAURS_LABYRINTH_API AMinotaurs_LabyrinthGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
 };
