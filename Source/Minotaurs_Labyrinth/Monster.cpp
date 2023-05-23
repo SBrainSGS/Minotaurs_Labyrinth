@@ -1,98 +1,129 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Monster.h"
+#include "MainHero.h"
+#include "NavigationSystem.h"
+#include "AIController.h"
 
-#include "Blueprint/AIBlueprintHelperLibrary.h"
-#include "Kismet/GameplayStatics.h"
-
-
-AMonster::AMonster(){
-	targetEntity = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-};
+AMonster::AMonster()
+{
+    PawnSensingComponent = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensingComponent"));
+    PawnSensingComponent->SetPeripheralVisionAngle(30.0f); // Угол обзора монстра
+    PawnSensingComponent->SightRadius = 500.0f; // Радиус обзора монстра
+    PawnSensingComponent->bSeePawns = true; // Включить обнаружение пешек
+    IsPlayerSeen = false;
+}
 
 void AMonster::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-
-	UpdateAI();
 }
+
 
 void AMonster::BeginPlay()
 {
-	Super::BeginPlay();
-	StartWander();
+    Super::BeginPlay();
+
+    UWorld* World = GetWorld();
+    AMainHero* MainHero = Cast<AMainHero>(UGameplayStatics::GetPlayerPawn(World, 0));
+    if (MainHero)
+    {
+        targetEntity = MainHero;
+    }
+    
+    StartWander();
 }
 
-void AMonster::UpdateAI()
+/*void AMonster::OnSeePawn(APawn* SeenPawn)
 {
-	{
-		if (CanSeeTarget())
-		{
-			ChaseTarget();
-			if (IsInRangeOfTarget())
-			{
-				AttackTarget();
-			}
-		}
-		else
-		{
-			// Логика поиска новой цели или другие действия, если цель не видна
-		}
-	}
-}
+    AMainHero* Player = Cast<AMainHero>(SeenPawn);
+    if (Player)
+    {
+        FString Message = TEXT("See");
+        FColor Color = FColor::Green;
+        float DisplayTime = 2.0f;
+        GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
+        ChaseTarget();
+        if (IsInRangeOfTarget())
+        {
+            Message = TEXT("Range");
+            Color = FColor::Blue;
+            DisplayTime = 2.0f;
+            GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
+            AttackTarget();
+        }
+    }
+}*/
 
-bool AMonster::CanSeeTarget(){
-	FHitResult HitResult;
-	FVector StartLocation = GetActorLocation();
-	FVector EndLocation = targetEntity->GetActorLocation();
-	FCollisionQueryParams TraceParams(FName(TEXT("LineTrace")), false, this);
-	GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECC_Visibility, TraceParams);
-	return (HitResult.Actor == targetEntity);
-}
+/*void AMonster::ChaseTarget()
+{
+    if (targetEntity)
+    {
+        StopWander();
 
-void AMonster::ChaseTarget(){
-	if (targetEntity)
-	{
-		StopWander();
-		FVector TargetLocation = targetEntity->GetActorLocation();
-		FVector Direction = TargetLocation - GetActorLocation();
-		Direction.Normalize();
+        FString Message = TEXT("Chasing");
+        FColor Color = FColor::Red;
+        float DisplayTime = 2.0f;
+        GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
 
-		FVector NewLocation = GetActorLocation() + Direction * movementSpeed * GetWorld()->DeltaTimeSeconds;
-		SetActorLocation(NewLocation);
-	}
-}
+        FVector TargetLocation = targetEntity->GetActorLocation();
+
+        AAIController* AIController = Cast<AAIController>(GetController());
+        if (AIController)
+        {
+            AIController->MoveToLocation(TargetLocation);
+
+            FRotator TargetRotation = (TargetLocation - GetActorLocation()).Rotation();
+            SetActorRotation(TargetRotation);
+        }
+        FVector Direction = targetEntity->GetActorLocation() - GetActorLocation();
+        Direction.Z = 0.0f; // Устанавливаем Z-координату в 0, чтобы игнорировать высоту
+
+        // Нормализуем вектор направления
+        Direction.Normalize();
+
+        // Вычисляем угол поворота к цели
+        FRotator TargetRotation = Direction.Rotation();
+
+        // Устанавливаем новую ориентацию поворота противника
+        SetActorRotation(TargetRotation);
+
+        // Двигаемся вперед в направлении цели
+        FVector ForwardVector = GetActorForwardVector();
+        FVector NewLocation = GetActorLocation() + ForwardVector * movementSpeed * GetWorld()->GetDeltaSeconds();
+
+        SetActorLocation(NewLocation);
+    }
+}*/
 
 void AMonster::AttackTarget()
 {
-	if (targetEntity)
-	{
-		FVector DamageOrigin = GetActorLocation(); // Позиция, откуда исходит урон
-		FDamageEvent DamageEvent;
-		targetEntity->TakeDamage(damage, FDamageEvent{}, nullptr, this);
-	}
+    if (targetEntity)
+    {
+        targetEntity->TakeDamage(damage);
+    }
 }
 
 bool AMonster::IsInRangeOfTarget()
 {
-	FVector MonsterLocation = GetActorLocation();
-	FVector TargetLocation = targetEntity->GetActorLocation();
-	float DistanceSq = FVector::DistSquared(MonsterLocation, TargetLocation);
-	return (DistanceSq <= FMath::Square(attackRadius));
+    FVector MonsterLocation = GetActorLocation();
+    FVector TargetLocation = targetEntity->GetActorLocation();
+    FVector HorizontalDirection = FVector(TargetLocation.X, TargetLocation.Y, MonsterLocation.Z);
+    float DistanceSq = FVector::DistSquared2D(MonsterLocation, HorizontalDirection);
+    return (DistanceSq <= FMath::Square(attackRadius));
 }
-
 
 void AMonster::StartWander()
 {
-	GetWorldTimerManager().SetTimer(WanderTimerHandle, this, &AMonster::StopWander, wanderDuration, false);
+    GetWorldTimerManager().SetTimer(WanderTimerHandle, this, &AMonster::StopWander, wanderDuration, false);
 
-	FVector WanderLocation = GetActorLocation() + FVector(FMath::FRandRange(-1.0f, 1.0f), FMath::FRandRange(-1.0f, 1.0f), 0.0f).GetSafeNormal() * wanderRadius;
+    FVector WanderLocation = GetActorLocation() + FVector(FMath::FRandRange(-1.0f, 1.0f), FMath::FRandRange(-1.0f, 1.0f), 0.0f).GetSafeNormal() * wanderRadius;
 
-	UAIBlueprintHelperLibrary::SimpleMoveToLocation(GetController(), WanderLocation);
+    AAIController* AIController = Cast<AAIController>(GetController());
+    if (AIController)
+    {
+        AIController->MoveToLocation(WanderLocation);
+    }
 }
-
+    
 void AMonster::StopWander()
 {
-	GetWorldTimerManager().ClearTimer(WanderTimerHandle);
+    GetWorldTimerManager().ClearTimer(WanderTimerHandle);
 }

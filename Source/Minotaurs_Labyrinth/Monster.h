@@ -3,7 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "NavigationSystem.h"
+#include "AIController.h"
+#include "NavigationSystem/Public/NavigationSystem.h"
+#include "EngineUtils.h"
+#include "Blueprint/AIBlueprintHelperLibrary.h"
+#include "Kismet/GameplayStatics.h"
+#include "Perception/PawnSensingComponent.h"
 
 #include "Entity.h"
 #include "MainHero.h"
@@ -16,19 +21,13 @@ class MINOTAURS_LABYRINTH_API AMonster : public AEntity
 	GENERATED_BODY()
 
 protected:
-	UFUNCTION(Category = "AI")
-	void UpdateAI();
+	/*UFUNCTION(Category = "AI")
+	void ChaseTarget();*/
 
-	UFUNCTION(Category = "AI")
-	bool CanSeeTarget();
-
-	UFUNCTION(Category = "AI")
-	void ChaseTarget();
-
-	UFUNCTION(Category = "AI")
+	UFUNCTION(BlueprintCallable, Category = "AI")
 	void AttackTarget();
 
-	UFUNCTION(Category = "AI")
+	UFUNCTION(BlueprintCallable, Category = "AI")
 	bool IsInRangeOfTarget();
 
 	UFUNCTION(Category = "AI")
@@ -37,8 +36,11 @@ protected:
 	UFUNCTION(Category = "AI")
 	void StopWander();
 
+	/*UFUNCTION(BlueprintCallable, Category = "AI")
+	void OnSeePawn(APawn* SeenPawn);*/
+
 	UPROPERTY(EditAnywhere, Category = "AI")
-	APawn* targetEntity;
+	AMainHero* targetEntity;
 
 	UPROPERTY(EditAnywhere, Category = "AI")
 	float wanderRadius;
@@ -47,7 +49,16 @@ protected:
 	float wanderDuration;
 
 	UPROPERTY(EditAnywhere, Category = "AI")
+	UPawnSensingComponent* PawnSensingComponent;
+
+	UPROPERTY(EditAnywhere, Category = "AI")
 	FTimerHandle WanderTimerHandle;
+
+	UPROPERTY(EditAnywhere, Category = "AI")
+	bool IsPlayerSeen;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI", meta = (AllowPrivateAccess = "true"))
+	UPathFollowingComponent* PathFollowingComponent;
 
 public:
 	AMonster();
