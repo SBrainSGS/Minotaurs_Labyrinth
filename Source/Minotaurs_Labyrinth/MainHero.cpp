@@ -4,9 +4,10 @@
 
 AMainHero::AMainHero()
 {
-	//Установка здоровья и маны
+	//Установка значений здоровья, маны и защиты
 	health = 100;
 	mana = 100;
+	defence = 0;
 	
 	//Отключение автоматической настройки поворота
 	bUseControllerRotationYaw = false;
@@ -155,7 +156,7 @@ void AMainHero::TakeDamage_Implementation(float DamageAmount)
 {
 	if(health - DamageAmount > 0)
 	{
-		health -= DamageAmount;
+		health -= (DamageAmount - defence) ;
 		FString Message = TEXT("Damage");
 		FColor Color = FColor::Green;
 		float DisplayTime = 2.0f;

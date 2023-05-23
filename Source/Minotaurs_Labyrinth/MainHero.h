@@ -66,6 +66,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Character")
 	float mana;
 
+	UPROPERTY(EditAnywhere, Category = "Character")
+	float defence;
+
 public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
