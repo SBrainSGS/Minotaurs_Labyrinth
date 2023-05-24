@@ -7,12 +7,17 @@
   <component name="ChangeListManager">
     <list default="true" id="5511b91e-9c5d-4c6f-8ec6-a3294ec1055a" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Content/Monsters/BP_MonsterAIController.uasset" afterDir="false" />
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/BTTask_BlueprintBase_New.uasset" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/Cyclop_BT.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/MainHero/BP_MainHeroMesh.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/MainHero/BP_MainHeroMesh.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Monsters/Cyclop/Cyclop_BP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Monsters/Cyclop/Cyclop_BP.uasset" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Minotaurs_Labyrinth/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Tutorial/Level_Tutorial.umap" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
