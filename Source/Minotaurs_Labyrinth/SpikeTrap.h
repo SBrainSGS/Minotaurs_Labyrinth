@@ -5,6 +5,7 @@
 #include "Components/BoxComponent.h"
 #include "Communicator_Interface.h"
 #include "MainHero.h"
+#include "Entity.h"
 #include "SpikeTrap.generated.h"
 
 UCLASS()

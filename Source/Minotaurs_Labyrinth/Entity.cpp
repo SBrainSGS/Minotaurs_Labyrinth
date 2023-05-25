@@ -41,7 +41,7 @@ void AEntity::TakeDamage_Implementation(float DamageAmount)
 	if(health - DamageAmount > 0)
 	{
 		health -= (DamageAmount - defence);
-		FString Message = TEXT("Damage");
+		FString Message = TEXT("Red");
 		FColor Color = FColor::Red;
 		float DisplayTime = 2.0f;
 		GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);

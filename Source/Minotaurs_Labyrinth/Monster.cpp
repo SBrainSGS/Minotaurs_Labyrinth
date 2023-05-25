@@ -20,15 +20,6 @@ void AMonster::Tick(float DeltaTime)
 void AMonster::BeginPlay()
 {
     Super::BeginPlay();
-
-    UWorld* World = GetWorld();
-    AMainHero* MainHero = Cast<AMainHero>(UGameplayStatics::GetPlayerPawn(World, 0));
-    if (MainHero)
-    {
-        targetEntity = MainHero;
-    }
-    
-    StartWander();
 }
 
 /*void AMonster::OnSeePawn(APawn* SeenPawn)
