@@ -24,7 +24,6 @@ public:
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 	USkeletalMeshComponent* SkeletalMeshComponent;
 
-protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	class UCapsuleComponent* CollisionCapsule;
 	
