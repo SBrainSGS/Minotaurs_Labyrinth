@@ -1,6 +1,8 @@
 #include "MainHero.h"
+#include "Sword.h"
 
 #include "Misc/OutputDeviceNull.h"
+#include "Components/SkeletalMeshComponent.h"
 
 AMainHero::AMainHero()
 {
@@ -22,7 +24,8 @@ AMainHero::AMainHero()
 	SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMeshComponent"));
 	SkeletalMeshComponent ->SetupAttachment(RootComponent);
 	
-	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkeletalMeshAsset(TEXT("SkeletalMesh'/Game/MainHero/Arissa.Arissa'"));
+	//static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkeletalMeshAsset(TEXT("SkeletalMesh'/Game/MainHero/Arissa.Arissa'"));
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SkeletalMeshAsset(TEXT("Skeleton'/Game/MainHero/Skeleton_MainHero.Skeleton_MainHero'"));
 
 	// Создание и настройка компонента коллизии для взаимодействия (сферическая коллизия)
 	InteractionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("InteractionSphere"));
@@ -80,6 +83,20 @@ void AMainHero::BeginPlay()
 	
 	InteractionSphere->OnComponentBeginOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereBeginOverlap);
 	InteractionSphere->OnComponentEndOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereEndOverlap);
+
+
+	// Спавн меча
+	if (SkeletalMeshComponent->DoesSocketExist("Arm_Weapon"))
+	{
+		// спавним меч
+		Sword = GetWorld()->SpawnActor<ASword>(ASword::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+		// прикрепляем меч к руке
+		Sword->AttachToComponent(SkeletalMeshComponent, FAttachmentTransformRules::KeepRelativeTransform, "Arm_Weapon");
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Сокет Arm_Weapon не найден"));
+	}
 }
 
 void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -92,10 +109,17 @@ void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	// Привязка функции к кнопке взаимодействия
 	PlayerInputComponent->BindAction("Interaction w/ objects", IE_Pressed, this, &AMainHero::OnInteractionPressed);
+	PlayerInputComponent->BindAction("LeftClick", IE_Pressed, this, &AMainHero::OnLeftClick);
 
 	//Привязка событий перекрытия компонента
 	InteractionSphere->OnComponentBeginOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereBeginOverlap);
 	InteractionSphere->OnComponentEndOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereEndOverlap);
+}
+
+void AMainHero::OnLeftClick()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("OnLeftClick"));
+	Sword->AttackNearbyEnemy();
 }
 
 void AMainHero::MoveForwardBack(float Value)
