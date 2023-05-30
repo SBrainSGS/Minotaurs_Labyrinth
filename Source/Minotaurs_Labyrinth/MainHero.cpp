@@ -161,5 +161,17 @@ void AMainHero::TakeDamage_Implementation(float DamageAmount)
 		FColor Color = FColor::Green;
 		float DisplayTime = 2.0f;
 		GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
-	}
+	} else Destroy();
 }
+
+float AMainHero::GetHealth()
+{
+	return health/100;
+}
+
+float AMainHero::GetMana()
+{
+	return mana/100;
+}
+
+

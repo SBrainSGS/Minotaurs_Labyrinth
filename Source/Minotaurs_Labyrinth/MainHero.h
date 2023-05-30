@@ -84,6 +84,12 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
 	void TakeDamage(float DamageAmount);
 	virtual void TakeDamage_Implementation(float DamageAmount) override;
+
+	UFUNCTION(BlueprintCallable, Category="MainHero")
+	float GetHealth();
+
+	UFUNCTION(BlueprintCallable, Category="MainHero")
+	float GetMana();
 	
 protected:
 	void MoveForwardBack(float Value);
