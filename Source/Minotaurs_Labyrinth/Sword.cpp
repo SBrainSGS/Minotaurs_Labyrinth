@@ -9,26 +9,26 @@ ASword::ASword() {
 	damage = 10;
 	radiusAttack = 50;
 
-	// Создание компонента и привязка его к корневому компоненту
+	// РЎРѕР·РґР°РЅРёРµ РєРѕРјРїРѕРЅРµРЅС‚Р° Рё РїСЂРёРІСЏР·РєР° РµРіРѕ Рє РєРѕСЂРЅРµРІРѕРјСѓ РєРѕРјРїРѕРЅРµРЅС‚Сѓ
 	SwordMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SwordMesh"));
 	RootComponent = SwordMesh;
 
-	// Загрузка меша для компонента
+	// Р—Р°РіСЂСѓР·РєР° РјРµС€Р° РґР»СЏ РєРѕРјРїРѕРЅРµРЅС‚Р°
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> MeshAsset(TEXT("SkeletalMesh'/Game/Weapon_Pack/Skeletal_Mesh/SK_Sword.SK_Sword'"));
 	if (MeshAsset.Succeeded())
 	{
 		SwordMesh->SetSkeletalMesh(MeshAsset.Object);
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Меш загрузился"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("РњРµС€ Р·Р°РіСЂСѓР·РёР»СЃСЏ"));
 	}
 	else {
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("РњРµС€ РЅРµ Р·Р°РіСЂСѓР·РёР»СЃСЏ"));
 	}
 }
 
 void ASword::BeginPlay() {
 	Super::BeginPlay();
 	
-	// Создание и настройка компонента меча
+	// РЎРѕР·РґР°РЅРёРµ Рё РЅР°СЃС‚СЂРѕР№РєР° РєРѕРјРїРѕРЅРµРЅС‚Р° РјРµС‡Р°
 	SwordMesh = NewObject<USkeletalMeshComponent>(this, TEXT("SwordMesh"));
 	SwordMesh->SetupAttachment(RootComponent);
 	SwordMesh->SetVisibility(true);
@@ -37,13 +37,13 @@ void ASword::BeginPlay() {
 void ASword::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 
-	// Получение указателя на компонент ввода игрока
+	// РџРѕР»СѓС‡РµРЅРёРµ СѓРєР°Р·Р°С‚РµР»СЏ РЅР° РєРѕРјРїРѕРЅРµРЅС‚ РІРІРѕРґР° РёРіСЂРѕРєР°
 	UInputComponent* PlayerInputComponent = GetWorld()->GetFirstPlayerController()->InputComponent;
 
-	// Проверка наличия компонента ввода
+	// РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РєРѕРјРїРѕРЅРµРЅС‚Р° РІРІРѕРґР°
 	if (PlayerInputComponent)
 	{
-		// Привязка функции к пользовательскому вводу (например, нажатию кнопки мыши)
+		// РџСЂРёРІСЏР·РєР° С„СѓРЅРєС†РёРё Рє РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРѕРјСѓ РІРІРѕРґСѓ (РЅР°РїСЂРёРјРµСЂ, РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё РјС‹С€Рё)
 		PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &ASword::AttackNearbyEnemy);
 	}
 }
@@ -59,7 +59,7 @@ void ASword::AttackNearbyEnemy() {
 	FCollisionObjectQueryParams ObjectParams(ECollisionChannel::ECC_Pawn);
 
 	FVector StartLocation = GetActorLocation();
-	FVector EndLocation = StartLocation + FVector(0.f, 0.f, 1.f); // Регулируйте высоту конечной точки в зависимости от вашего мира
+	FVector EndLocation = StartLocation + FVector(0.f, 0.f, 1.f); // Р РµРіСѓР»РёСЂСѓР№С‚Рµ РІС‹СЃРѕС‚Сѓ РєРѕРЅРµС‡РЅРѕР№ С‚РѕС‡РєРё РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РІР°С€РµРіРѕ РјРёСЂР°
 
 	bool bHit = GetWorld()->OverlapMultiByObjectType(Overlaps, StartLocation, FQuat::Identity, ObjectParams, FCollisionShape::MakeSphere(radiusAttack), Params);
 
@@ -71,8 +71,8 @@ void ASword::AttackNearbyEnemy() {
 			AMonster* Enemy = Cast<AMonster>(Overlap.GetActor());
 			if (Enemy)
 			{
-				// Вызовите функцию TakeDamage() на противнике, чтобы нанести урон
-				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Красаучик, пизди черта"));
+				// Р’С‹Р·РѕРІРёС‚Рµ С„СѓРЅРєС†РёСЋ TakeDamage() РЅР° РїСЂРѕС‚РёРІРЅРёРєРµ, С‡С‚РѕР±С‹ РЅР°РЅРµСЃС‚Рё СѓСЂРѕРЅ
+				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("РљСЂР°СЃР°СѓС‡РёРє, РїРёР·РґРё С‡РµСЂС‚Р°"));
 				Enemy->TakeDamage_Implementation(damage);
 			}
 		}
@@ -80,40 +80,40 @@ void ASword::AttackNearbyEnemy() {
 }
 
 //void ASword::Attack() {
-//	// Проверка, может ли меч атаковать в данный момент (например, проверка на перезарядку или состояние анимации)
+//	// РџСЂРѕРІРµСЂРєР°, РјРѕР¶РµС‚ Р»Рё РјРµС‡ Р°С‚Р°РєРѕРІР°С‚СЊ РІ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ (РЅР°РїСЂРёРјРµСЂ, РїСЂРѕРІРµСЂРєР° РЅР° РїРµСЂРµР·Р°СЂСЏРґРєСѓ РёР»Рё СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РЅРёРјР°С†РёРё)
 //	if (CanAttack())
 //	{
-//		// Инициируйте атаку меча
+//		// РРЅРёС†РёРёСЂСѓР№С‚Рµ Р°С‚Р°РєСѓ РјРµС‡Р°
 //		StartAttackAnimation();
 //		ApplyDamageToEnemies();
 //	}
 //}
 //
 //bool ASword::CanAttack() const {
-//	// Дополнительная логика проверки, может ли меч атаковать в данный момент
-//	// Например, проверка на перезарядку, состояние анимации или другие факторы
-//	// Верните true, если меч может атаковать, и false в противном случае
+//	// Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ Р»РѕРіРёРєР° РїСЂРѕРІРµСЂРєРё, РјРѕР¶РµС‚ Р»Рё РјРµС‡ Р°С‚Р°РєРѕРІР°С‚СЊ РІ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚
+//	// РќР°РїСЂРёРјРµСЂ, РїСЂРѕРІРµСЂРєР° РЅР° РїРµСЂРµР·Р°СЂСЏРґРєСѓ, СЃРѕСЃС‚РѕСЏРЅРёРµ Р°РЅРёРјР°С†РёРё РёР»Рё РґСЂСѓРіРёРµ С„Р°РєС‚РѕСЂС‹
+//	// Р’РµСЂРЅРёС‚Рµ true, РµСЃР»Рё РјРµС‡ РјРѕР¶РµС‚ Р°С‚Р°РєРѕРІР°С‚СЊ, Рё false РІ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ
 //	return true;
 //}
 //
 //void ASword::StartAttackAnimation() {
-//	// Здесь вы можете запустить анимацию атаки меча
-//	// Например, воспроизведение определенной анимации или установка состояния анимации
+//	// Р—РґРµСЃСЊ РІС‹ РјРѕР¶РµС‚Рµ Р·Р°РїСѓСЃС‚РёС‚СЊ Р°РЅРёРјР°С†РёСЋ Р°С‚Р°РєРё РјРµС‡Р°
+//	// РќР°РїСЂРёРјРµСЂ, РІРѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёРµ РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ Р°РЅРёРјР°С†РёРё РёР»Рё СѓСЃС‚Р°РЅРѕРІРєР° СЃРѕСЃС‚РѕСЏРЅРёСЏ Р°РЅРёРјР°С†РёРё
 //}
 //
 //void ASword::ApplyDamageToEnemies() {
-//	// Здесь вы можете реализовать логику нанесения урона врагам
-//	// Например, обнаружение всех врагов в области поражения меча и нанесение им урона
+//	// Р—РґРµСЃСЊ РІС‹ РјРѕР¶РµС‚Рµ СЂРµР°Р»РёР·РѕРІР°С‚СЊ Р»РѕРіРёРєСѓ РЅР°РЅРµСЃРµРЅРёСЏ СѓСЂРѕРЅР° РІСЂР°РіР°Рј
+//	// РќР°РїСЂРёРјРµСЂ, РѕР±РЅР°СЂСѓР¶РµРЅРёРµ РІСЃРµС… РІСЂР°РіРѕРІ РІ РѕР±Р»Р°СЃС‚Рё РїРѕСЂР°Р¶РµРЅРёСЏ РјРµС‡Р° Рё РЅР°РЅРµСЃРµРЅРёРµ РёРј СѓСЂРѕРЅР°
 //}
 
 //void ASword::SetSwordTexture(UTexture* Texture) {
-//	// Проверяем наличие компонента меча
+//	// РџСЂРѕРІРµСЂСЏРµРј РЅР°Р»РёС‡РёРµ РєРѕРјРїРѕРЅРµРЅС‚Р° РјРµС‡Р°
 //	if (SwordMesh)
 //	{
-//		// Получаем материал меча
+//		// РџРѕР»СѓС‡Р°РµРј РјР°С‚РµСЂРёР°Р» РјРµС‡Р°
 //		UMaterialInstanceDynamic* DynamicMaterial = SwordMesh->CreateDynamicMaterialInstance(0);
 //
-//		// Устанавливаем текстуру в материал
+//		// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‚РµРєСЃС‚СѓСЂСѓ РІ РјР°С‚РµСЂРёР°Р»
 //		if (DynamicMaterial)
 //		{
 //			DynamicMaterial->SetTextureParameterValue("TextureBlend", Texture);
