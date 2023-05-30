@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
 #include "Melee_Weapon.h"
 #include "Sword.generated.h"
 
@@ -22,14 +23,16 @@ public:
 		USkeletalMeshComponent* SwordMesh;
 
 	// Установка текстуры меча
-	UFUNCTION(BlueprintCallable, Category = "Sword")
-		void SetSwordTexture(UTexture* Texture);
+	/*UFUNCTION(BlueprintCallable, Category = "Sword")
+		void SetSwordTexture(UTexture* Texture);*/
 
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintCallable)
+	USkeletalMeshComponent* GetMesh();
+		
+	/*UFUNCTION(BlueprintCallable)
 	void Attack();
 
 	UFUNCTION(BlueprintCallable)
@@ -39,7 +42,7 @@ public:
 	void StartAttackAnimation();
 
 	UFUNCTION(BlueprintCallable)
-	void ApplyDamageToEnemies();
+	void ApplyDamageToEnemies();*/
 
 	UFUNCTION(BlueprintCallable)
 	void AttackNearbyEnemy();
