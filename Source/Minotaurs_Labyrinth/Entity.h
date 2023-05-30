@@ -49,9 +49,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
-	void TakeDamage(float DamageAmount);
-	virtual void TakeDamage_Implementation(float DamageAmount) override;
 
 public:
 	// Called every frame
@@ -60,4 +57,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+		void TakeDamage(float DamageAmount);
+	virtual void TakeDamage_Implementation(float DamageAmount) override;
 };
