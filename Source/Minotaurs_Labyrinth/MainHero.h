@@ -19,6 +19,7 @@
 #include "Kismet/KismetMathLibrary.h"
 
 #include "Communicator_Interface.h"
+#include "Sword.h"
 
 #include "MainHero.generated.h"
 
@@ -60,6 +61,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
 	AActor* InteractingActor;
 
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	ASword* Sword;
+
 	UPROPERTY(EditAnywhere, Category = "Character")
 	float health;
 
@@ -76,10 +81,13 @@ public:
 	void OnInteractionPressed();
 
 	UFUNCTION(BlueprintCallable)
+	void OnLeftClick();
+
+	UFUNCTION(BlueprintCallable)
 	void OnInteractionSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION(BlueprintCallable)
-		void OnInteractionSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	void OnInteractionSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
 	void TakeDamage(float DamageAmount);
