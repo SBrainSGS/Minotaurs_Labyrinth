@@ -39,7 +39,7 @@ void ASpikeTrap::OnTrapTriggered(
 	{
 		if (OtherActor->IsA<AMainHero>())
 		{
-			AEntity* MainHero = Cast<AEntity>(OtherActor);
+			AMainHero* MainHero = Cast<AMainHero>(OtherActor);
 			if (MainHero)
 			{
 				// Вызываем метод TakeDamage у персонажа
