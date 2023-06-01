@@ -7,7 +7,9 @@
 ASword::ASword() {
 	name = "Sword";
 	damage = 10;
-	radiusAttack = 50;
+	radiusAttack = 100;
+	CooldownTime = 0.5f;
+	Socket = "Arm_Weapon";
 
 	// Создание компонента и привязка его к корневому компоненту
 	SwordMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SwordMesh"));
@@ -18,10 +20,21 @@ ASword::ASword() {
 	if (MeshAsset.Succeeded())
 	{
 		SwordMesh->SetSkeletalMesh(MeshAsset.Object);
+
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("��� ����������"));
+	}
+	else {
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("��� �� ����������"));
 		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Меш загрузился"));
 	}
 	else {
 		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
+
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Меш загрузился"));
+	}
+	else {
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
+
 	}
 }
 

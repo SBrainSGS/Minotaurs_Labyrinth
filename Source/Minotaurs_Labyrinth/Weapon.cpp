@@ -24,3 +24,14 @@ void AWeapon::Tick(float DeltaTime)
 
 }
 
+
+FName AWeapon::GetSocket()
+{
+	return Socket;
+}
+
+
+FString AWeapon::GetName()
+{
+	return name;
+}
