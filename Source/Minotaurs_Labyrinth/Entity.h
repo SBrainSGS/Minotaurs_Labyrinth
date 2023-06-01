@@ -44,12 +44,13 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Entity")
 	float damage;
+
+	UPROPERTY(EditAnywhere, Category = "Entity")
+	bool beingAttacked;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-
-public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -59,4 +60,7 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
 		void TakeDamage(float DamageAmount);
 	virtual void TakeDamage_Implementation(float DamageAmount) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Damage")
+	bool getBeingDamaged();
 };

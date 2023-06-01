@@ -12,7 +12,7 @@ AEntity::AEntity()
 	
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	beingAttacked = false;
 }
 
 // Called when the game starts or when spawned
@@ -45,6 +45,13 @@ void AEntity::TakeDamage_Implementation(float DamageAmount)
 		FColor Color = FColor::Red;
 		float DisplayTime = 2.0f;
 		GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
+
+		beingAttacked = true;
 	} else Destroy();
+}
+
+bool AEntity::getBeingDamaged()
+{
+	return beingAttacked;
 }
 
