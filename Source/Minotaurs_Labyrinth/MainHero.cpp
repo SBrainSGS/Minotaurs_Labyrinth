@@ -1,5 +1,4 @@
 #include "MainHero.h"
-#include "Sword.h"
 
 #include "Misc/OutputDeviceNull.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -85,18 +84,19 @@ void AMainHero::BeginPlay()
 	InteractionSphere->OnComponentEndOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereEndOverlap);
 
 
-	// Спавн меча
-	if (SkeletalMeshComponent->DoesSocketExist("Arm_Weapon"))
-	{
-		// спавним меч
-		Sword = GetWorld()->SpawnActor<ASword>(ASword::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
-		// прикрепляем меч к руке
-		Sword->AttachToComponent(SkeletalMeshComponent, FAttachmentTransformRules::KeepRelativeTransform, "Arm_Weapon");
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Сокет Arm_Weapon не найден"));
-	}
+	// Создание и добавление оружия в массив
+	ASword* Sword = GetWorld()->SpawnActor<ASword>(ASword::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+	Weapons.Add(Sword);
+
+	AAxe* Axe = GetWorld()->SpawnActor<AAxe>(AAxe::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+	Weapons.Add(Axe);
+
+	AGreatHammer* GreatHammer = GetWorld()->SpawnActor<AGreatHammer>(AGreatHammer::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+	Weapons.Add(GreatHammer);
+
+	SelectWeapon(0);
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, GetCurrentLevelName());
 }
 
 void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -110,6 +110,7 @@ void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	// Привязка функции к кнопке взаимодействия
 	PlayerInputComponent->BindAction("Interaction w/ objects", IE_Pressed, this, &AMainHero::OnInteractionPressed);
 	PlayerInputComponent->BindAction("LeftClick", IE_Pressed, this, &AMainHero::OnLeftClick);
+	PlayerInputComponent->BindAction("SwitchWeapon", IE_Pressed, this, &AMainHero::SwitchWeapon);
 
 	//Привязка событий перекрытия компонента
 	InteractionSphere->OnComponentBeginOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereBeginOverlap);
@@ -119,7 +120,14 @@ void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void AMainHero::OnLeftClick()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("OnLeftClick"));
-	Sword->AttackNearbyEnemy();
+	if (SelectedWeapon)
+	{
+		SelectedWeapon->AttackNearbyEnemy();
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("No selected weapon"));
+	}
 }
 
 void AMainHero::MoveForwardBack(float Value)
@@ -187,3 +195,82 @@ void AMainHero::TakeDamage_Implementation(float DamageAmount)
 		GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
 	}
 }
+<<<<<<< Updated upstream
+=======
+
+float AMainHero::GetHealth()
+{
+	return health/100;
+}
+
+float AMainHero::GetMana()
+{
+	return mana/100;
+}
+
+
+void AMainHero::SelectWeapon(int32 WeaponIndex)
+{
+	// Проверка на валидность индекса
+	if (WeaponIndex >= 0 && WeaponIndex < Weapons.Num())
+	{
+		// Установка текущего выбранного оружия
+		SelectedWeapon = Weapons[WeaponIndex];
+		SelectedWeapon->AttachToComponent(SkeletalMeshComponent, FAttachmentTransformRules::KeepRelativeTransform, SelectedWeapon->GetSocket());
+
+		// Вывод названия оружия в консоль
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, SelectedWeapon->GetName());
+	}
+}
+
+void AMainHero::DetachWeapon()
+{
+	// Проверка наличия оружия
+	if (SelectedWeapon)
+	{
+		// Открепление оружия от руки
+		SelectedWeapon->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
+	}
+}
+
+void AMainHero::SwitchWeapon()
+{
+	SelectedWeaponIndex++; // Увеличение индекса выбранного оружия
+
+	// Проверка выхода за пределы диапазона индексов оружий
+	if (SelectedWeaponIndex >= Weapons.Num())
+	{
+		SelectedWeaponIndex = 0; // Возвращение к началу (циклическое переключение)
+	}
+	
+	DetachWeapon();
+	SelectWeapon(SelectedWeaponIndex);
+}
+
+FString AMainHero::GetCurrentLevelName() const
+{
+	FString LevelName = "";
+
+	UWorld* World = GetWorld();
+	if (World != nullptr)
+	{
+		FString MapName = World->GetMapName();
+
+		// Обработка имени уровня (можно удалить префикс и расширение файла)
+		// Например, "PersistentLevel.MyLevel" преобразуется в "MyLevel"
+		if (MapName.StartsWith("/Game/"))
+		{
+			MapName = MapName.RightChop(6);
+			int32 DotIndex;
+			if (MapName.FindChar('.', DotIndex))
+			{
+				MapName = MapName.Left(DotIndex);
+			}
+		}
+
+		LevelName = MapName;
+	}
+
+	return LevelName;
+}
+>>>>>>> Stashed changes

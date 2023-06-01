@@ -20,6 +20,8 @@
 
 #include "Communicator_Interface.h"
 #include "Sword.h"
+#include "Axe.h"
+#include "GreatHammer.h"
 
 #include "MainHero.generated.h"
 
@@ -61,9 +63,14 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
 	AActor* InteractingActor;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	TArray<AMelee_Weapon*> Weapons;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
-	ASword* Sword;
+	AMelee_Weapon* SelectedWeapon;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	int32 SelectedWeaponIndex;
 
 	UPROPERTY(EditAnywhere, Category = "Character")
 	float health;
@@ -92,6 +99,27 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
 	void TakeDamage(float DamageAmount);
 	virtual void TakeDamage_Implementation(float DamageAmount) override;
+<<<<<<< Updated upstream
+=======
+
+	UFUNCTION(BlueprintCallable, Category="MainHero")
+	float GetHealth();
+
+	UFUNCTION(BlueprintCallable, Category="MainHero")
+	float GetMana();
+
+	UFUNCTION(BlueprintCallable, Category = "MainHero")
+	void SelectWeapon(int32 WeaponIndex);
+
+	UFUNCTION(BlueprintCallable, Category = "MainHero")
+	void DetachWeapon();
+
+	UFUNCTION(BlueprintCallable, Category = "MainHero")
+	void SwitchWeapon();
+
+	UFUNCTION(BlueprintCallable, Category = "MainHero")
+		FString GetCurrentLevelName() const;
+>>>>>>> Stashed changes
 	
 protected:
 	void MoveForwardBack(float Value);

@@ -23,6 +23,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Weapon")
 	float radiusAttack;
 
+	UPROPERTY(EditAnywhere, Category = "Melee_Weapon")
+	FName Socket; // Сокет персонажа, куда прикреплять оружие
+
 	AWeapon();
 
 protected:
@@ -33,4 +36,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	FName GetSocket();
+	FString GetName();
 };

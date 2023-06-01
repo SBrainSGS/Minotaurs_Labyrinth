@@ -29,8 +29,6 @@ public:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	USkeletalMeshComponent* GetMesh();
 		
 	/*UFUNCTION(BlueprintCallable)
 	void Attack();
@@ -43,9 +41,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ApplyDamageToEnemies();*/
-
-	UFUNCTION(BlueprintCallable)
-	void AttackNearbyEnemy();
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -7,7 +7,9 @@
 ASword::ASword() {
 	name = "Sword";
 	damage = 10;
-	radiusAttack = 50;
+	radiusAttack = 100;
+	CooldownTime = 0.5f;
+	Socket = "Arm_Weapon";
 
 	// Создание компонента и привязка его к корневому компоненту
 	SwordMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SwordMesh"));
@@ -18,10 +20,17 @@ ASword::ASword() {
 	if (MeshAsset.Succeeded())
 	{
 		SwordMesh->SetSkeletalMesh(MeshAsset.Object);
+<<<<<<< Updated upstream
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Меш загрузился"));
 	}
 	else {
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
+=======
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("РњРµС€ Р·Р°РіСЂСѓР·РёР»СЃСЏ"));
+	}
+	else {
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("РњРµС€ РЅРµ Р·Р°РіСЂСѓР·РёР»СЃСЏ"));
+>>>>>>> Stashed changes
 	}
 }
 
@@ -48,6 +57,7 @@ void ASword::Tick(float DeltaTime) {
 	}
 }
 
+<<<<<<< Updated upstream
 USkeletalMeshComponent* ASword::GetMesh() {
 	return SwordMesh;
 }
@@ -79,6 +89,8 @@ void ASword::AttackNearbyEnemy() {
 	}
 }
 
+=======
+>>>>>>> Stashed changes
 //void ASword::Attack() {
 //	// Проверка, может ли меч атаковать в данный момент (например, проверка на перезарядку или состояние анимации)
 //	if (CanAttack())
