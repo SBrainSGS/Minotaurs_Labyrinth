@@ -78,6 +78,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
+	UPROPERTY(EditAnywhere, Category = "Character")
+    bool bIsDead;
+	
 	void OnInteractionPressed();
 
 	UFUNCTION(BlueprintCallable)
@@ -98,6 +101,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="MainHero")
 	float GetMana();
+	
+	UFUNCTION(BlueprintCallable, Category = "MainHero")
+	bool GetIsDead();
 	
 protected:
 	void MoveForwardBack(float Value);

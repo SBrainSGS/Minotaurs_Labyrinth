@@ -18,10 +18,10 @@ ASword::ASword() {
 	if (MeshAsset.Succeeded())
 	{
 		SwordMesh->SetSkeletalMesh(MeshAsset.Object);
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Меш загрузился"));
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Меш загрузился"));
 	}
 	else {
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
+		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
 	}
 }
 
@@ -73,7 +73,7 @@ void ASword::AttackNearbyEnemy() {
 			{
 				// Вызовите функцию TakeDamage() на противнике, чтобы нанести урон
 				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Красаучик, пизди черта"));
-				Enemy->TakeDamage_Implementation(damage);
+				Enemy->TakeDamage(damage);
 			}
 		}
 	}
