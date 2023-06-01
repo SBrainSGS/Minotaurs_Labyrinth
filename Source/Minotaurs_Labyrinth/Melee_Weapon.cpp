@@ -7,7 +7,6 @@
 AMelee_Weapon::AMelee_Weapon() {}
 
 void AMelee_Weapon::AttackNearbyEnemy() {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("AttackNearbyEnemy"));
 	TArray<FOverlapResult> Overlaps;
 	FCollisionQueryParams Params(NAME_None, false, this);
 	FCollisionObjectQueryParams ObjectParams(ECollisionChannel::ECC_Pawn);
