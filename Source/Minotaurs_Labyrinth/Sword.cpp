@@ -21,6 +21,9 @@ ASword::ASword() {
 	{
 		SwordMesh->SetSkeletalMesh(MeshAsset.Object);
 	}
+	/*else {
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
+	}*/
 }
 
 void ASword::BeginPlay() {

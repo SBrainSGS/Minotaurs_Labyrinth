@@ -99,19 +99,6 @@ void AMainHero::BeginPlay()
 	SelectWeapon(0);
 
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, GetCurrentLevelName());
-
-	// Спавн меча
-	if (SkeletalMeshComponent->DoesSocketExist("Arm_Weapon"))
-	{
-		// спавним меч
-		Sword = GetWorld()->SpawnActor<ASword>(ASword::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
-		// прикрепляем меч к руке
-		Sword->AttachToComponent(SkeletalMeshComponent, FAttachmentTransformRules::KeepRelativeTransform, "Arm_Weapon");
-	}
-	else
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Сокет Arm_Weapon не найден"));
-	}
 }
 
 void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
