@@ -48,6 +48,8 @@ AMainHero::AMainHero()
 	FloatingPawnMovement->MaxSpeed = 500.0f;
 
 	InteractingActor = nullptr;
+
+	bIsDead = false;
 }
 
 void AMainHero::Tick(float DeltaTime)
@@ -83,7 +85,6 @@ void AMainHero::BeginPlay()
 	
 	InteractionSphere->OnComponentBeginOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereBeginOverlap);
 	InteractionSphere->OnComponentEndOverlap.AddDynamic(this, &AMainHero::OnInteractionSphereEndOverlap);
-
 
 	// Спавн меча
 	if (SkeletalMeshComponent->DoesSocketExist("Arm_Weapon"))
@@ -185,7 +186,11 @@ void AMainHero::TakeDamage_Implementation(float DamageAmount)
 		FColor Color = FColor::Green;
 		float DisplayTime = 2.0f;
 		GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
-	} else Destroy();
+	} else
+	{
+		bIsDead = true;
+		Destroy();
+	}
 }
 
 float AMainHero::GetHealth()
@@ -196,6 +201,11 @@ float AMainHero::GetHealth()
 float AMainHero::GetMana()
 {
 	return mana/100;
+}
+
+bool AMainHero::GetIsDead()
+{
+	return bIsDead;
 }
 
 
