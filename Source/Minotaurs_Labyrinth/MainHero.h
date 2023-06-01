@@ -120,8 +120,7 @@ public:
 	void SwitchWeapon();
 
 	UFUNCTION(BlueprintCallable, Category = "MainHero")
-		FString GetCurrentLevelName() const;
-
+	FString GetCurrentLevelName() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "MainHero")
 	bool GetIsDead();

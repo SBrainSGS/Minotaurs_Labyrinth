@@ -99,7 +99,7 @@ void AMainHero::BeginPlay()
 	SelectWeapon(0);
 
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, GetCurrentLevelName());
-=======
+
 	// Спавн меча
 	if (SkeletalMeshComponent->DoesSocketExist("Arm_Weapon"))
 	{

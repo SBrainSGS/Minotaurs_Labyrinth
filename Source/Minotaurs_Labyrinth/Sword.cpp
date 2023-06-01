@@ -20,21 +20,6 @@ ASword::ASword() {
 	if (MeshAsset.Succeeded())
 	{
 		SwordMesh->SetSkeletalMesh(MeshAsset.Object);
-
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("��� ����������"));
-	}
-	else {
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("��� �� ����������"));
-		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Меш загрузился"));
-	}
-	else {
-		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
-
-		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Меш загрузился"));
-	}
-	else {
-		//GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
-
 	}
 }
 
@@ -58,37 +43,6 @@ void ASword::Tick(float DeltaTime) {
 	{
 		// Привязка функции к пользовательскому вводу (например, нажатию кнопки мыши)
 		PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &ASword::AttackNearbyEnemy);
-	}
-}
-
-USkeletalMeshComponent* ASword::GetMesh() {
-	return SwordMesh;
-}
-
-void ASword::AttackNearbyEnemy() {
-	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("AttackNearbyEnemy"));
-	TArray<FOverlapResult> Overlaps;
-	FCollisionQueryParams Params(NAME_None, false, this);
-	FCollisionObjectQueryParams ObjectParams(ECollisionChannel::ECC_Pawn);
-
-	FVector StartLocation = GetActorLocation();
-	FVector EndLocation = StartLocation + FVector(0.f, 0.f, 1.f); // Регулируйте высоту конечной точки в зависимости от вашего мира
-
-	bool bHit = GetWorld()->OverlapMultiByObjectType(Overlaps, StartLocation, FQuat::Identity, ObjectParams, FCollisionShape::MakeSphere(radiusAttack), Params);
-
-	if (bHit)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("if (bHit)"));
-		for (const FOverlapResult& Overlap : Overlaps)
-		{
-			AMonster* Enemy = Cast<AMonster>(Overlap.GetActor());
-			if (Enemy)
-			{
-				// Вызовите функцию TakeDamage() на противнике, чтобы нанести урон
-				GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Красаучик, пизди черта"));
-				Enemy->TakeDamage(damage);
-			}
-		}
 	}
 }
 
