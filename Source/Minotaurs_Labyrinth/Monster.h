@@ -57,6 +57,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "AI")
 	bool IsPlayerSeen;
 
+	UPROPERTY(EditAnywhere, Category = "AI")
+		float lastAttack;
+
+	UPROPERTY(EditAnywhere, Category = "AI")
+		float attackDelay;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI", meta = (AllowPrivateAccess = "true"))
 	UPathFollowingComponent* PathFollowingComponent;
 
@@ -64,4 +70,8 @@ public:
 	AMonster();
 	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
+
+
+	bool CanAttack() const;
+	void Attack();
 };

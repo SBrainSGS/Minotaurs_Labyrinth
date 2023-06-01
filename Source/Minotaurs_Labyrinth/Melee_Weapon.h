@@ -17,5 +17,15 @@ class MINOTAURS_LABYRINTH_API AMelee_Weapon : public AWeapon
 public:
 	AMelee_Weapon();
 
-	void slash();
+	UPROPERTY(EditAnywhere, Category = "Melee_Weapon")
+	float LastUsedTime; // Время последнего использования оружия
+
+	UPROPERTY(EditAnywhere, Category = "Melee_Weapon")
+	float CooldownTime; // Время кулдауна оружия в секундах
+
+	UFUNCTION(BlueprintCallable)
+	void AttackNearbyEnemy();
+
+	UFUNCTION(BlueprintCallable)
+	bool CanUseWeapon() const;
 };

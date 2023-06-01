@@ -10,10 +10,20 @@ AMonster::AMonster()
     PawnSensingComponent->SightRadius = 500.0f; // Радиус обзора монстра
     PawnSensingComponent->bSeePawns = true; // Включить обнаружение пешек
     IsPlayerSeen = false;
+    attackDelay = 2.0f;
 }
 
 void AMonster::Tick(float DeltaTime)
 {
+    Super::Tick(DeltaTime);
+
+    if (!targetEntity)
+    {
+        targetEntity = Cast<AMainHero>(GetWorld()->GetFirstPlayerController()->GetPawn());
+    }
+    else {
+        AttackTarget();
+    }
 }
 
 
@@ -86,10 +96,42 @@ void AMonster::BeginPlay()
 
 void AMonster::AttackTarget()
 {
-    if (targetEntity)
+    // Определить положение монстра
+    FVector MonsterLocation = GetActorLocation();
+
+    // Создать сферу с центром в положении монстра и радиусом обнаружения
+    FSphere SphereDetectionSphere(MonsterLocation, attackRadius);
+
+    // Массив для хранения обнаруженных актеров
+    TArray<AActor*> OverlappingActors;
+
+    // Поиск актеров внутри сферы
+    UKismetSystemLibrary::SphereOverlapActors(
+        GetWorld(),
+        MonsterLocation,
+        attackRadius,
+        TArray<TEnumAsByte<EObjectTypeQuery>>(),
+        AMainHero::StaticClass(),
+        TArray<AActor*>(),
+        OverlappingActors
+    );
+
+    // Проверка наличия обнаруженных актеров
+    if (OverlappingActors.Num() > 0)
     {
-        targetEntity->TakeDamage(damage);
+        if (CanAttack())
+        {
+            // Обнаружен главный герой в радиусе
+            targetEntity->TakeDamage(damage);
+            lastAttack = GetWorld()->GetTimeSeconds();
+        }
     }
+}
+
+bool AMonster::CanAttack() const
+{
+    float CurrentTime = GetWorld()->GetTimeSeconds();
+    return (CurrentTime - lastAttack) >= attackDelay;
 }
 
 bool AMonster::IsInRangeOfTarget()
