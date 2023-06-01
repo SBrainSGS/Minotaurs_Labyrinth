@@ -182,13 +182,9 @@ void AMainHero::TakeDamage_Implementation(float DamageAmount)
 	if(health - DamageAmount > 0)
 	{
 		health -= (DamageAmount - defence) ;
-		FString Message = TEXT("Damage");
-		FColor Color = FColor::Green;
-		float DisplayTime = 2.0f;
-		GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
 	} else
 	{
-		bIsDead = true;
+		Die();
 		Destroy();
 	}
 }
@@ -203,9 +199,81 @@ float AMainHero::GetMana()
 	return mana/100;
 }
 
+<<<<<<< Updated upstream
+=======
+void AMainHero::SelectWeapon(int32 WeaponIndex)
+{
+	// Проверка на валидность индекса
+	if (WeaponIndex >= 0 && WeaponIndex < Weapons.Num())
+	{
+		// Установка текущего выбранного оружия
+		SelectedWeapon = Weapons[WeaponIndex];
+		SelectedWeapon->AttachToComponent(SkeletalMeshComponent, FAttachmentTransformRules::KeepRelativeTransform, SelectedWeapon->GetSocket());
+	}
+}
+
+void AMainHero::DetachWeapon()
+{
+	// Проверка наличия оружия
+	if (SelectedWeapon)
+	{
+		// Открепление оружия от руки
+		SelectedWeapon->DetachFromActor(FDetachmentTransformRules::KeepRelativeTransform);
+	}
+}
+
+void AMainHero::SwitchWeapon()
+{
+	SelectedWeaponIndex++; // Увеличение индекса выбранного оружия
+
+	// Проверка выхода за пределы диапазона индексов оружий
+	if (SelectedWeaponIndex >= Weapons.Num())
+	{
+		SelectedWeaponIndex = 0; // Возвращение к началу (циклическое переключение)
+	}
+	
+	DetachWeapon();
+	SelectWeapon(SelectedWeaponIndex);
+}
+
+FString AMainHero::GetCurrentLevelName() const
+{
+	FString LevelName = "";
+
+	UWorld* World = GetWorld();
+	if (World != nullptr)
+	{
+		FString MapName = World->GetMapName();
+
+		// Обработка имени уровня (можно удалить префикс и расширение файла)
+		// Например, "PersistentLevel.MyLevel" преобразуется в "MyLevel"
+		if (MapName.StartsWith("/Game/"))
+		{
+			MapName = MapName.RightChop(6);
+			int32 DotIndex;
+			if (MapName.FindChar('.', DotIndex))
+			{
+				MapName = MapName.Left(DotIndex);
+			}
+		}
+
+		LevelName = MapName;
+	}
+
+	return LevelName;
+}
+
+>>>>>>> Stashed changes
 bool AMainHero::GetIsDead()
 {
 	return bIsDead;
 }
 
+<<<<<<< Updated upstream
 
+=======
+void AMainHero::Die_Implementation()
+{
+
+}
+>>>>>>> Stashed changes
