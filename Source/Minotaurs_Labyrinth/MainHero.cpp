@@ -47,6 +47,8 @@ AMainHero::AMainHero()
 	FloatingPawnMovement->MaxSpeed = 500.0f;
 
 	InteractingActor = nullptr;
+
+	bIsDead = false;
 }
 
 void AMainHero::Tick(float DeltaTime)
@@ -97,6 +99,19 @@ void AMainHero::BeginPlay()
 	SelectWeapon(0);
 
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, GetCurrentLevelName());
+=======
+	// Спавн меча
+	if (SkeletalMeshComponent->DoesSocketExist("Arm_Weapon"))
+	{
+		// спавним меч
+		Sword = GetWorld()->SpawnActor<ASword>(ASword::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
+		// прикрепляем меч к руке
+		Sword->AttachToComponent(SkeletalMeshComponent, FAttachmentTransformRules::KeepRelativeTransform, "Arm_Weapon");
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Сокет Arm_Weapon не найден"));
+	}
 }
 
 void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -193,10 +208,12 @@ void AMainHero::TakeDamage_Implementation(float DamageAmount)
 		FColor Color = FColor::Green;
 		float DisplayTime = 2.0f;
 		GEngine->AddOnScreenDebugMessage(-1, DisplayTime, Color, Message);
+	} else
+	{
+		bIsDead = true;
+		Destroy();
 	}
 }
-<<<<<<< Updated upstream
-=======
 
 float AMainHero::GetHealth()
 {
@@ -207,7 +224,6 @@ float AMainHero::GetMana()
 {
 	return mana/100;
 }
-
 
 void AMainHero::SelectWeapon(int32 WeaponIndex)
 {
@@ -273,4 +289,7 @@ FString AMainHero::GetCurrentLevelName() const
 
 	return LevelName;
 }
->>>>>>> Stashed changes
+bool AMainHero::GetIsDead()
+{
+	return bIsDead;
+}

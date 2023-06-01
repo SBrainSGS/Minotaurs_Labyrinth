@@ -85,6 +85,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
+	UPROPERTY(EditAnywhere, Category = "Character")
+    bool bIsDead;
+	
 	void OnInteractionPressed();
 
 	UFUNCTION(BlueprintCallable)
@@ -99,8 +102,7 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
 	void TakeDamage(float DamageAmount);
 	virtual void TakeDamage_Implementation(float DamageAmount) override;
-<<<<<<< Updated upstream
-=======
+
 
 	UFUNCTION(BlueprintCallable, Category="MainHero")
 	float GetHealth();
@@ -119,7 +121,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "MainHero")
 		FString GetCurrentLevelName() const;
->>>>>>> Stashed changes
+
+	
+	UFUNCTION(BlueprintCallable, Category = "MainHero")
+	bool GetIsDead();
 	
 protected:
 	void MoveForwardBack(float Value);

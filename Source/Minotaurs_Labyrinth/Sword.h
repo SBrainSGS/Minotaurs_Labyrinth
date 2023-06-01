@@ -18,11 +18,11 @@ class MINOTAURS_LABYRINTH_API ASword : public AMelee_Weapon
 public:
 	ASword();
 
-	// Декларация компонента
+	// Р”РµРєР»Р°СЂР°С†РёСЏ РєРѕРјРїРѕРЅРµРЅС‚Р°
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mesh")
 		USkeletalMeshComponent* SwordMesh;
 
-	// Установка текстуры меча
+	// РЈСЃС‚Р°РЅРѕРІРєР° С‚РµРєСЃС‚СѓСЂС‹ РјРµС‡Р°
 	/*UFUNCTION(BlueprintCallable, Category = "Sword")
 		void SetSwordTexture(UTexture* Texture);*/
 
