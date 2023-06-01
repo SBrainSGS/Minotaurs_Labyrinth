@@ -124,6 +124,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "MainHero")
 	bool GetIsDead();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "MainHero")
+	void Die();
 	
 protected:
 	void MoveForwardBack(float Value);
