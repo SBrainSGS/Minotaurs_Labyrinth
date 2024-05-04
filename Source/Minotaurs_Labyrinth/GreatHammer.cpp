@@ -10,25 +10,22 @@ AGreatHammer::AGreatHammer() {
 	CooldownTime = 2.0f;
 	Socket = "GreatHammerSocket";
 
-	// Создание компонента и привязка его к корневому компоненту
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("AxeMesh"));
 	RootComponent = SkeletalMesh;
 
-	// Загрузка меша для компонента
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> MeshAsset(TEXT("SkeletalMesh'/Game/Weapon_Pack/Skeletal_Mesh/SK_GreatHammer.SK_GreatHammer'"));
 	if (MeshAsset.Succeeded())
 	{
 		SkeletalMesh->SetSkeletalMesh(MeshAsset.Object);
-	}
-	else {
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Меш не загрузился"));
 	}
 }
 
 void AGreatHammer::BeginPlay() {
 	Super::BeginPlay();
 
-	// Создание и настройка компонента меча
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 	SkeletalMesh = NewObject<USkeletalMeshComponent>(this, TEXT("AxeMesh"));
 	SkeletalMesh->SetupAttachment(RootComponent);
 	SkeletalMesh->SetVisibility(true);
@@ -37,13 +34,13 @@ void AGreatHammer::BeginPlay() {
 void AGreatHammer::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 
-	// Получение указателя на компонент ввода игрока
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	UInputComponent* PlayerInputComponent = GetWorld()->GetFirstPlayerController()->InputComponent;
 
-	// Проверка наличия компонента ввода
+	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	if (PlayerInputComponent)
 	{
-		// Привязка функции к пользовательскому вводу (например, нажатию кнопки мыши)
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
 		PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &AGreatHammer::AttackNearbyEnemy);
 	}
 }

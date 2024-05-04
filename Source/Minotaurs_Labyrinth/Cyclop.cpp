@@ -5,11 +5,11 @@
 
 ACyclop::ACyclop()
 {
-	health = 10;
+	health = 100;
 	defence = 0;
 	movementSpeed = 100;
 	wanderDuration = 200000;
 	wanderRadius = 100;
-	attackRadius = 500;
+	attackRadius = 50;
 	damage = 10;
 }
