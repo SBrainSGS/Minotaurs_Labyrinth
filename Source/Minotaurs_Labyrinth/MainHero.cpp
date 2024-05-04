@@ -98,6 +98,8 @@ void AMainHero::BeginPlay()
 
 	SelectWeapon(0);
 
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, GetCurrentLevelName());
 }
 
 void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -120,6 +122,8 @@ void AMainHero::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AMainHero::OnLeftClick()
 {
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("OnLeftClick"));
 	if (SelectedWeapon)
 	{
 		SelectedWeapon->AttackNearbyEnemy();
